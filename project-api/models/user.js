@@ -1,4 +1,6 @@
+const bcrypt = require("bcrypt")
 const db = require("../db")
+const { BCRYPT_WORK_FACTOR } = require("../config")
 const { UnauthorizedError, BadRequestError } = require("../utils/errors")
 
 class User {
@@ -37,6 +39,7 @@ class User {
         }
         //
         //take the users password, and hash it
+        const hashedPassword = await bcrypt.hash(credentials.password, BCRYPT_WORK_FACTOR)
         //take the users email, and lowercase it
         const lowercasedEmail = credentials.email.toLowerCase()
         //
@@ -49,7 +52,8 @@ class User {
             )
             VALUES ($1, $2)
             RETURNING id, email, created_at;
-        `, [lowercasedEmail, credentials.password])
+        `,
+         [lowercasedEmail, hashedPassword])
 
         //return the user
         const user = result.rows[0]
