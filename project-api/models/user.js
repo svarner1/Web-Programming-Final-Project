@@ -11,6 +11,7 @@ class User {
             createdAt: user.created_at
         }
     }
+    
     static async login(credentials) {
         //user should submit their email and password
         //if any of these fields are missing, throw an error
