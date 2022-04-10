@@ -8,7 +8,8 @@ class User {
         return {
             id: user.id,
             email: user.email,
-            createdAt: user.created_at
+            username: user.username,
+            createdAt: user.created_at,
         }
     }
     
@@ -16,7 +17,7 @@ class User {
         //user should submit their email and password
         //if any of these fields are missing, throw an error
         const requiredFields = ["email", "password"]
-        requiredFields.forEach(field => {
+        requiredFields.forEach((field) => {
             if(!credentials.hasOwnProperty(field)){
                 throw new BadRequestError(`Missing ${field} in request body.`)
             }
@@ -40,8 +41,8 @@ class User {
     static async register(credentials) {
         //user should submit their email, pw
         //if any fields are missing, throw an error
-        const requiredFields = ["email", "password"]
-        requiredFields.forEach(field => {
+        const requiredFields = ["email", "username", "password"]
+        requiredFields.forEach((field) => {
             if(!credentials.hasOwnProperty(field)){
                 throw new BadRequestError(`Missing ${field} in request body.`)
             }
@@ -57,6 +58,11 @@ class User {
         if(existingUser) {
             throw new BadRequestError(`Duplicate email: ${credentials.email}`)
         }
+
+        const existingUserWithUsername = await User.fetchUserByUsername(credentials.username)
+        if(existingUserWithUsername) {
+            throw new BadRequestError(`A user already exists with username: ${credentials.username}`)
+        }
         //
         //take the users password, and hash it
         const hashedPassword = await bcrypt.hash(credentials.password, BCRYPT_WORK_FACTOR)
@@ -65,15 +71,11 @@ class User {
         //
         //create a new user in the db with all their info
         const result = await db.query(
-        `
-            INSERT INTO users (
-                email,
-                password
-            )
-            VALUES ($1, $2)
-            RETURNING id, email, created_at;
-        `,
-         [lowercasedEmail, hashedPassword])
+            `INSERT INTO users (email, username, password)
+            VALUES ($1, $2, $3)
+            RETURNING id, email, username, created_at;
+            `,
+            [lowercasedEmail, credentials.username, hashedPassword])
 
         //return the user
         const user = result.rows[0]
@@ -89,6 +91,20 @@ class User {
         const query = `SELECT * FROM users WHERE email = $1`
 
         const result = await db.query(query, [email.toLowerCase()])
+
+        const user = result.rows[0]
+
+        return user
+    }
+
+    static async fetchUserByUsername(username) {
+        if(!username) {
+            throw new BadRequestError("No username provided")
+        }
+
+        const query = `SELECT * FROM users WHERE username = $1`
+
+        const result = await db.query(query, [username])
 
         const user = result.rows[0]
 
