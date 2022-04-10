@@ -4,6 +4,7 @@ const morgan = require("morgan")
 const { PORT } = require("./config")
 const authRoutes = require("./routes/auth")
 const { NotFoundError } = require("./utils/errors")
+const security = require("./middleware/security")
 
 const app = express()
 
@@ -13,6 +14,7 @@ app.use(cors())
 app.use(express.json())
 //log request info
 app.use(morgan("tiny"))
+app.use(security.extractUserFromJwt)
 
 app.use("/auth", authRoutes)
 
@@ -32,3 +34,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`🚀 Server running http://localhost:${PORT}`);
 })
+
