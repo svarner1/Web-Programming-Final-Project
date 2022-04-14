@@ -3,6 +3,7 @@ CREATE TABLE users (
     password    TEXT NOT NULL,
     username    TEXT NOT NULL,
     email       TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
+    is_admin    BOOLEAN NOT NULL DEFAULT FALSE,
     created_at  TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

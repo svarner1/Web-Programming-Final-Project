@@ -2,9 +2,9 @@ const express = require("express")
 const cors = require("cors")
 const morgan = require("morgan")
 const { PORT } = require("./config")
+const security = require("./middleware/security")
 const authRoutes = require("./routes/auth")
 const { NotFoundError } = require("./utils/errors")
-const security = require("./middleware/security")
 
 const app = express()
 
@@ -27,7 +27,7 @@ app.use((err, req, res, next) => {
     const message = err.message
 
     return res.status(status).json({
-        error: {message, status}
+        error: {message, status},
     })
 })
 
