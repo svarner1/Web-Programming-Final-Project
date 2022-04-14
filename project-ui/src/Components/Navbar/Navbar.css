@@ -8,25 +8,26 @@
     flex-direction: row;
     align-items: center;
     padding: 0 var(--side-padding);
-  }
-  .Navbar a {
+}
+.Navbar a {
     color: white;
     font-weight: 500;
-  }
+}
   
-  .Navbar .content {
+.Navbar .content {
     max-width: var(--content-width);
     width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
-  .Navbar .content .siteName {
+    padding: 10px;
+}
+.Navbar .content .siteName {
     margin-right: 50px;
-  }
+}
   
-  .Navbar .content .links {
+.Navbar .content .links {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -36,8 +37,5 @@
     flex: 1;
     max-width: 650px;
     gap: 40px;
-  }
+}
   
-  .Navbar .content .links li span {
-    color: white;
-  }
