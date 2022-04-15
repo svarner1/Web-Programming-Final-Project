@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav className="Navbar">
             <div className="content">
                 <div className="siteName">
-                    <h1> Site Name </h1>
+                    <h1>My eJournal</h1>
                 </div>
                 <ul className="links">
                     <li>

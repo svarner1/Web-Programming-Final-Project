@@ -16,6 +16,8 @@ export default function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home/>} />
+            {/* <Route path="/login" element={<Login user={user} setUser={setUser}/>} />
+            <Route path="/signup" element={<Signup user={user} setUser={setUser}/>} /> */}
           </Routes>
         </BrowserRouter>
     </div>
