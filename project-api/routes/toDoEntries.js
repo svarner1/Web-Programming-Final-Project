@@ -18,10 +18,11 @@ router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
 })
 
 //listing all entries
-router.get("/", async (req, res, next) => {
+router.get("/userToDoList/:userId", async (req, res, next) => {
+    const { userId } = req.params
     try {
-       const toDoEntries = await ToDoEntry.listToDoEntries()
-       return res.status(200).json({ toDoEntries })
+        const toDoEntries = await ToDoEntry.listToDoEntriesForUser({userId})
+        return res.status(200).json({ toDoEntries })
     } catch(err) {
         next(err)
     }

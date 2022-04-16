@@ -2,7 +2,7 @@ const db = require("../db")
 const { BadRequestError, NotFoundError } = require("../utils/errors")
 
 class ToDoEntry {
-    static async listToDoEntries() {
+    static async listToDoEntriesForUser({userId}) {
         //list all posts in descending order of importance
         const results = await db.query(
             `
@@ -14,10 +14,12 @@ class ToDoEntry {
                      t.created_at AS "createdAt",
                      t.updated_at AS "updatedAt"
               FROM to_do_list AS t
-              GROUP BY t.id
+              WHERE t.user_id = $1
               ORDER BY t.priority DESC
-            `
+            `, 
+            [userId]
         )
+        return results.rows
     }
 
     static async createToDoEntry({ toDoEntry, user }){
@@ -51,7 +53,22 @@ class ToDoEntry {
     }
 
     static async fetchToDoEntryById(toDoEntryId){
-        //fetch a single entry
+        const results = await db.query(
+            `
+            SELECT t.id,
+                t.text,
+                t.priority,
+                t.category,
+                t.user_id AS "userId",
+                t.created_at AS "createdAt",
+                t.updated_at AS "updatedAt"
+            FROM to_do_list AS t
+            WHERE t.id = $1
+            `,
+                [toDoEntryId]
+        )
+
+        return results.rows[0]
     }
 
 
