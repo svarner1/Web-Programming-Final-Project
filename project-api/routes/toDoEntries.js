@@ -40,10 +40,12 @@ router.get("/:toDoEntryId", async (req, res, next) => {
     }
 })
 
-//updating an entry
-router.put("/:toDoEntryId", async (req, res, next) => {
+//deleting a list item
+router.delete("/delete/:toDoEntryId", async (req, res, next) => {
     try {
-       //updating a single list item
+       const { toDoEntryId } = req.params
+       const deletedEntry = await ToDoEntry.deleteToDoListEntry(toDoEntryId)
+       return res.status(200).json({ deletedEntry })
     } catch(err) {
         next(err)
     }

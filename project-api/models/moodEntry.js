@@ -2,24 +2,6 @@ const db = require("../db")
 const { BadRequestError, NotFoundError } = require("../utils/errors")
 
 class MoodEntry {
-    // static async listMoodEntriesForUser({userId}) {
-    //     //list all mood entries in order from newest to oldest
-    //     const results = await db.query(
-    //         `
-    //           SELECT m.id,
-    //                  m.text,
-    //                  m.mood,
-    //                  m.user_id AS "userId",
-    //                  m.created_at AS "createdAt"
-    //           FROM mood_entry AS m
-    //           WHERE m.user_id = $1
-    //           ORDER BY t.createdAt DESC
-    //         `, 
-    //         [userId]
-    //     )
-    //     return results.rows
-    // }
-
     static async listMoodEntriesForUser({userId}) {
         //list all posts in descending order of importance
         const results = await db.query(

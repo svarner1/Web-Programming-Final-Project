@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import "./Navbar.css"
 
-export default function Navbar() {
+export default function Navbar({ user, handleLogout}) {
     return (
         <nav className="Navbar">
             <div className="content">
@@ -21,12 +21,31 @@ export default function Navbar() {
                     <li>
                         <Link to="/">Checklist</Link>
                     </li>
-                    <li>
-                        <Link to="/">Log In</Link>
-                    </li>
-                    <li>
-                        <Link to="/">Sign Up</Link>
-                    </li>
+                    {user?.email ? (
+                        <>
+                            <li>
+                                <Link to="/">To-Do List</Link>
+                            </li>
+                            <li>
+                                <Link to="/">Mood Tracker</Link>
+                            </li>
+                            <li>
+                                <Link to="/">Site Details</Link>
+                            </li>
+                            <li>
+                                <span onClick={handleLogout}>Logout</span>
+                            </li>
+                        </>
+                    ):(
+                        <>
+                            <li>
+                                <Link to="/login">Login</Link>
+                            </li>
+                            <li>
+                                <Link to="/signup">Sign Up</Link>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </div>
         </nav>
@@ -35,38 +54,3 @@ export default function Navbar() {
 
 
 
-
-{/* {user?.email ? (
-    <>
-        <li>
-            <Link to="/toDoList">To-Do List</Link>
-        </li>
-        <li>
-            <Link to="/moodTracker">Mood Tracker</Link>
-        </li>
-        <li>
-            <Link to="/">Site Details</Link>
-        </li>
-        <li>
-            <Link to="/">Sign Out</Link>
-        </li>
-    </>
-):(
-    <>
-        <li>
-            <Link to="/">About Us</Link>
-        </li>
-        <li>
-            <Link to="/">Site Description</Link>
-        </li>
-        <li>
-            <Link to="/">Checklist</Link>
-        </li>
-        <li>
-            <Link to="/">Log In</Link>
-        </li>
-        <li>
-            <Link to="/">Sign Up</Link>
-        </li>
-    </>
-)} */}

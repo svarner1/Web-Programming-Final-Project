@@ -72,8 +72,17 @@ class ToDoEntry {
     }
 
 
-    static async editToDoListEntry({ toDoEntryId, listEntryUpdate }) {
-        //edit a single entry
+    static async deleteToDoListEntry(toDoEntryId) {
+        const results = await db.query(
+            `
+            DELETE FROM to_do_list
+            WHERE id = $1
+            RETURNING *
+            `,
+                [toDoEntryId]
+        )
+
+        return results.rows[0]
     }
 }
 
