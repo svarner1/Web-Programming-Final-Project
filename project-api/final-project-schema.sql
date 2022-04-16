@@ -25,8 +25,8 @@ CREATE TABLE to_do_list (
     user_id     INTEGER NOT NULL,
     created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at  TIMESTAMP NOT NULL DEFAULT NOW(),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    -- FOREIGN KEY (category) REFERENCES list_categories(category_name) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (category) REFERENCES list_categories(category_name) ON DELETE CASCADE
 );
 
 CREATE TABLE task_completed (
@@ -42,6 +42,29 @@ CREATE TABLE mood_entry (
     mood        TEXT NOT NULL,
     user_id     INTEGER NOT NULL,
     created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    -- FOREIGN KEY (mood) REFERENCES mood_categories(category_name) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (mood) REFERENCES mood_categories(category_name) ON DELETE CASCADE
 );
+
+INSERT INTO users (username, password, email, is_admin) VALUES
+    ('demouser', 'ThisIsForWPClass', 'demo@user', TRUE);
+
+INSERT INTO list_categories (category_name) VALUES
+    ('Home'),
+    ('School'),
+    ('Health'),
+    ('Work'),
+    ('Leisure'),
+    ('Other');
+
+INSERT INTO mood_categories (category_name) VALUES
+    ('Stressed'),
+    ('Nervous'),
+    ('Unsettled'),
+    ('Active'),
+    ('Relaxed'),
+    ('Lovable'),
+    ('Romantic'),
+    ('Happy'),
+    ('Tired'),
+    ('Calm');  

@@ -25,20 +25,31 @@ router.post("/register", async (req, res, next) => {
     }
 })
 
+// router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
+//     console.log("is in the route auth/me")
+//     try {
+//       const { email } = res.locals.user
+//       console.log("Here is the user:", res.locals.user)
+
+//       const user = await User.fetchUserByEmail(email)
+//       const publicUser = User.makePublicUser(user)
+
+//       console.log("Here is the public user:", publicUser)
+//       return res.status(200).json({ user: publicUser })
+//     } catch(err) {
+//       next(err)
+//     }
+//   }) 
+
 router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
-    console.log("is in the route auth/me")
     try {
       const { email } = res.locals.user
-      console.log("Here is the user:", res.locals.user)
-
       const user = await User.fetchUserByEmail(email)
       const publicUser = User.makePublicUser(user)
-
-      console.log("Here is the public user:", publicUser)
       return res.status(200).json({ user: publicUser})
-    } catch(err) {
+    } catch (err) {
       next(err)
     }
-  }) 
+  })
 
 module.exports = router

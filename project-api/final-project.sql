@@ -7,3 +7,5 @@ CREATE DATABASE final_project;
 \connect final_project;
 
 \i final-project-schema.sql
+
+-- \i final-project-data.sql

@@ -14,6 +14,7 @@ class ToDoEntry {
                      t.created_at AS "createdAt",
                      t.updated_at AS "updatedAt"
               FROM to_do_list AS t
+              GROUP BY t.id
               ORDER BY t.priority DESC
             `
         )

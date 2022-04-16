@@ -4,7 +4,7 @@ const db = require("../db")
 const { UnauthorizedError, BadRequestError } = require("../utils/errors")
 
 class User {
-    static async makePublicUser(user) {
+    static makePublicUser(user) {
         return {
             id: user.id,
             email: user.email,
