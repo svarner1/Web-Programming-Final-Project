@@ -7,6 +7,7 @@ import Home from "../Home/Home"
 import Login from "../Login/Login"
 import Signup from "../Signup/Signup"
 import ToDoListPage from "../ToDoListPage/ToDoListPage"
+import NewListItemForm from "../NewListItemForm/NewListItemForm"
 import './App.css';
 
 export default function App() {
@@ -70,6 +71,7 @@ export default function App() {
             <Route path="/login" element={<Login user={user} setUser={setUser}/>} />
             <Route path="/signup" element={<Signup user={user} setUser={setUser}/>} />
             <Route path="/toDoList" element={<ToDoListPage user={user} setUser={setUser} toDoEntries={toDoEntries}/>}/>
+            <Route path="/createListItem" element={<NewListItemForm user={user} setUser={setUser} setToDoEntries={setToDoEntries}/>} />
           </Routes>
         </BrowserRouter>
     </div>

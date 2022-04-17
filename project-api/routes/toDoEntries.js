@@ -5,17 +5,20 @@ const security = require("../middleware/security")
 const router = express.Router()
 
 //structure: http method, handler, route method
-//creating an entry
+// creating an entry
 router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
        //create a new item in the to do list
        const { user } = res.locals
-       const toDoEntry = await ToDoEntry.createToDoEntry({ user, toDoEntry: req.body })
+       console.log("User in create method ", user)
+       const toDoEntry = await ToDoEntry.createToDoEntry({toDoEntry: req.body, user})
        return res.status(201).json({ toDoEntry })
     } catch(err) {
         next(err)
     }
 })
+
+
 
 //listing all entries
 router.get("/userToDoList/:userId", async (req, res, next) => {

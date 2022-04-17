@@ -21,7 +21,7 @@ export default function ToDoListPage({ user, toDoEntries }) {
         <div className="ToDoListPage">
             <h1 className="pageTitle">To-Do List Page</h1>
             <Box className={classes.buttonBox} mb={5}>
-                <Link to="/"><Button variant="contained"> Create New List Item </Button></Link>
+                <Link to="/createListItem"><Button variant="contained"> Create New List Item </Button></Link>
             </Box>
             <div className="feed">
                 {toDoEntries?.map((listItem) => (

@@ -22,7 +22,7 @@ class ToDoEntry {
         return results.rows
     }
 
-    static async createToDoEntry({ toDoEntry, user }){
+    static async createToDoEntry({toDoEntry, user}){
         //create a new to do list entry
         const requiredFields = ["text", "priority", "category"]
         requiredFields.forEach(field => {

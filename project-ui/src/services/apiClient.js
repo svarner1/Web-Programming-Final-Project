@@ -12,14 +12,23 @@ class ApiClient {
       localStorage.setItem(this.tokenName, token)
     }
   
-    async request({ endpoint, method = `GET`, data = {} }) {
-      const url = `${this.remoteHostUrl}/${endpoint}`
+    // async request({ endpoint, method = `GET`, data = {} }) {
+    //   const url = `${this.remoteHostUrl}/${endpoint}`
   
+    //   const headers = {
+    //     "Content-Type": "application/json",
+    //     Authorization: this.token ? `Bearer ${this.token}` : "",
+    //   }
+    async request({ endpoint, method, data = {} }) {
+      const url = `${this.remoteHostUrl}/${endpoint}`
+      console.debug("API Call:", endpoint, data, method)
+      const params = method === `GET` ? data : {}
       const headers = {
         "Content-Type": "application/json",
-        Authorization: this.token ? `Bearer ${this.token}` : "",
       }
-  
+      if (this.token) {
+        headers["Authorization"] = `Bearer ${this.token}`
+      } 
       try {
         const res = await axios({ url, method, data, headers })
         return { data: res.data, error: null }
@@ -52,8 +61,8 @@ class ApiClient {
         return await this.request({ endpoint: `toDoRoutes/userToDoList/${userId}`, method: `GET`})
     }
 
-    async createToDoEntry({toDoEntry}) {
-        return await this.request({ endpoint: `toDoRoutes`, method: `POST`, data: toDoEntry })
+    async createToDoEntry({ toDoEntry }) {
+        return await this.request({ endpoint: `toDoRoutes`, method: `POST`, data: toDoEntry})
     }
 
 }
