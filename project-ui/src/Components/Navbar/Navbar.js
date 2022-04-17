@@ -24,7 +24,7 @@ export default function Navbar({ user, handleLogout}) {
                     {user?.email ? (
                         <>
                             <li>
-                                <Link to="/">To-Do List</Link>
+                                <Link to="/toDoList">To-Do List</Link>
                             </li>
                             <li>
                                 <Link to="/">Mood Tracker</Link>

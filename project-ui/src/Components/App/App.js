@@ -6,33 +6,55 @@ import Navbar from "../Navbar/Navbar"
 import Home from "../Home/Home"
 import Login from "../Login/Login"
 import Signup from "../Signup/Signup"
+import ToDoListPage from "../ToDoListPage/ToDoListPage"
 import './App.css';
 
 export default function App() {
   const [user, setUser] = useState({})
   const [error, setError] = useState(null)
+  const [isFetching, setIsFetching] = useState(false)
+  const [toDoEntries, setToDoEntries] = useState([])
+  const [moodEntries, moodoEntries] = useState([])
 
+  //fetching the current user
   useEffect(() => {
-    //The user is being fetched using the api token and the apiClient file
     const fetchUser = async () => {
-      //fetchUserFromToken() returns the user (by using auth/me)
-      const { data, error } = await apiClient.fetchUserFromToken()
+      const { data } = await apiClient.fetchUserFromToken()
       if (data) {
-        console.log(data.user)
         setUser(data.user)
-      }
-      if (error){
-        setError(error)
       }
     }
 
-    const token = localStorage.getItem("event_finder_token")
-      if (token) {
-        apiClient.setToken(token)
-        fetchUser()
-      }
+    const token = localStorage.getItem("rate_my_setup_token")
+    if (token) {
+      apiClient.setToken(token)
+      fetchUser()
+    }
   }, [])
 
+  console.log("USER", user)
+
+  useEffect(() => {
+    const fetchToDoListItems = async () => {
+      console.log("INSIDE FETCH USERS ITEMS")
+      console.log("USER", user)
+      setIsFetching(true)
+      const { data, error } = await apiClient.listUserToDoEntries(user.id)
+      if (data) {
+        console.log("data", data)
+        setToDoEntries(data.toDoEntries)
+      }
+      if (error) {
+        setError(error)
+      }
+
+      setIsFetching(false)
+    }
+
+    fetchToDoListItems()
+  }, [user])
+
+  //logging out the user
   const handleLogout = async () => {
     await apiClient.logoutUser()
     setUser({})
@@ -47,6 +69,7 @@ export default function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/login" element={<Login user={user} setUser={setUser}/>} />
             <Route path="/signup" element={<Signup user={user} setUser={setUser}/>} />
+            <Route path="/toDoList" element={<ToDoListPage user={user} setUser={setUser} toDoEntries={toDoEntries}/>}/>
           </Routes>
         </BrowserRouter>
     </div>
