@@ -8,6 +8,7 @@ class MoodEntry {
             `
               SELECT m.id,
                      m.text,
+                     m.mood,
                      m.user_id AS "userId",
                      m.created_at AS "createdAt"
               FROM mood_entry AS m
@@ -18,7 +19,7 @@ class MoodEntry {
         return results.rows
     }
 
-    static async createMoodEntry({ moodEntry, user }){
+    static async createMoodEntry({moodEntry, user}){
         //create a new to do list entry
         const requiredFields = ["text", "mood"]
         requiredFields.forEach(field => {

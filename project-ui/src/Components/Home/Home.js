@@ -20,6 +20,14 @@ export default function Home(){
                     <h2>Mood Tracker</h2>
                 </div>
             </div>
+            <div className="siteDescription">
+                <h3 className="hello">
+                Hello, my name is Sydney Varner and I am the programmer that created this site! :) I made it 
+                for people who are looking to keep track of daily tasks and to track their daily moods.
+                Users can create to-do list items that include text, a chosen priority-level, and the list item category. 
+                Users can also create mood entry items that include text and a chosen mood.
+                </h3>
+            </div>
         </div>
     )
 }

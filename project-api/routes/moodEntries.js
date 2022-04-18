@@ -9,7 +9,7 @@ const router = express.Router()
 router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
        const { user } = res.locals
-       const moodEntry = await MoodEntry.createMoodEntry({ user, moodEntry: req.body })
+       const moodEntry = await MoodEntry.createMoodEntry({moodEntry: req.body, user})
        return res.status(201).json({ moodEntry })
     } catch(err) {
         next(err)

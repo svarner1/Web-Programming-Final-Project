@@ -46,9 +46,6 @@ CREATE TABLE mood_entry (
     FOREIGN KEY (mood) REFERENCES mood_categories(category_name) ON DELETE CASCADE
 );
 
-INSERT INTO users (username, password, email, is_admin) VALUES
-    ('demouser', 'ThisIsForWPClass', 'demo@user', TRUE);
-
 INSERT INTO list_categories (category_name) VALUES
     ('Home'),
     ('School'),

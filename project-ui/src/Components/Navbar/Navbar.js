@@ -13,13 +13,13 @@ export default function Navbar({ user, handleLogout}) {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/">About Us</Link>
+                        <Link to="/aboutUs">About Us</Link>
                     </li>
                     <li>
-                        <Link to="/">Site Description</Link>
+                        <Link to="/siteDescription">Site Description</Link>
                     </li>
                     <li>
-                        <Link to="/">Checklist</Link>
+                        <Link to="/checklist">Checklist</Link>
                     </li>
                     {user?.email ? (
                         <>
@@ -27,10 +27,7 @@ export default function Navbar({ user, handleLogout}) {
                                 <Link to="/toDoList">To-Do List</Link>
                             </li>
                             <li>
-                                <Link to="/">Mood Tracker</Link>
-                            </li>
-                            <li>
-                                <Link to="/">Site Details</Link>
+                                <Link to="/moodEntries">Mood Tracker</Link>
                             </li>
                             <li>
                                 <span onClick={handleLogout}>Logout</span>

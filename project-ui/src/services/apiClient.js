@@ -65,6 +65,18 @@ class ApiClient {
         return await this.request({ endpoint: `toDoRoutes`, method: `POST`, data: toDoEntry})
     }
 
+    async listUserMoodEntries(userId) {
+      return await this.request({ endpoint: `moodRoutes/userMoodList/${userId}`, method: `GET`})
+  }
+
+    async createMoodEntry({ moodEntry }) {
+        return await this.request({ endpoint: `moodRoutes`, method: `POST`, data: moodEntry})
+    }
+
+    async deleteToDoEntry(entryId) {
+        return await this.request({ endpoint: `toDoRoutes/delete/${entryId}`, method: `DELETE`})
+    }
+
 }
 
 const API = new ApiClient(process.env.REACT_APP_REMOTE_HOST_URL || "http://localhost:3001")

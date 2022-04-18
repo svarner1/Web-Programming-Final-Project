@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ToDoListPage({ user, toDoEntries }) {
+export default function ToDoListPage({ user, toDoEntries, setToDoEntries }) {
     const classes = useStyles();
 
     console.log("toDoEntries", toDoEntries)
@@ -21,11 +21,11 @@ export default function ToDoListPage({ user, toDoEntries }) {
         <div className="ToDoListPage">
             <h1 className="pageTitle">To-Do List Page</h1>
             <Box className={classes.buttonBox} mb={5}>
-                <Link to="/createListItem"><Button variant="contained"> Create New List Item </Button></Link>
+                <Link className="createButtonLink" to="/createListItem"><Button variant="contained"> Create New List Item </Button></Link>
             </Box>
             <div className="feed">
                 {toDoEntries?.map((listItem) => (
-                    <ToDoListCard listItem={listItem} key={listItem.id} user={user} />
+                    <ToDoListCard listItem={listItem} key={listItem.id} user={user} setToDoEntries={setToDoEntries}/>
                 ))}
             </div>
         </div>
