@@ -1,0 +1,2 @@
+# eJournal-Api
+The backend
